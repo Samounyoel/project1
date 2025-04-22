@@ -8,7 +8,6 @@
 }
 
 body {
-  margin: 10px;
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -39,20 +38,20 @@ body {
   left: 0;
   bottom: 0;
   height: 3px;
-  width: 28px;
+  width: 24px;
   border-radius: 12px;
   background: #4070f4;
 }
 
-.wrapper #registrationForm {
+.wrapper #loginForm {
   margin-top: 30px;
 }
 
-.wrapper #registrationForm .input-box {
+.wrapper #loginForm .input-box {
   margin: 15px 0;
 }
 
-#registrationForm .input-box label {
+#loginForm .input-box label {
   display: block;
   font-size: 14px;
   font-weight: 500;
@@ -60,9 +59,9 @@ body {
   color: #333;
 }
 
-#registrationForm .input-box input,
-#registrationForm .input-box select,
-#registrationForm .input-box file {
+#loginForm .input-box input,
+#loginForm .input-box select,
+#loginForm .input-box file {
   width: 100%;
   padding: 10px;
   font-size: 16px;
@@ -73,18 +72,18 @@ body {
   transition: all 0.3s ease;
 }
 
-#registrationForm .input-box input:focus,
-#registrationForm .input-box select:focus,
-#registrationForm .input-box file:focus {
+#loginForm .input-box input:focus,
+#loginForm .input-box select:focus,
+#loginForm .input-box file:focus {
   border-color: #4070f4;
 }
 
-#registrationForm .policy {
+#loginForm .policy {
   display: flex;
   align-items: center;
 }
 
-#registrationForm .policy label {
+#loginForm .policy label {
   font-size: 14px;
   font-weight: 500;
   margin-left: 10px;
@@ -105,18 +104,18 @@ body {
   background: #0e4bf1;
 }
 
-#registrationForm .text h3 {
+#loginForm .text h3 {
   color: #333;
   width: 100%;
   text-align: center;
 }
 
-#registrationForm .text h3 a {
+#loginForm .text h3 a {
   color: #4070f4;
   text-decoration: none;
 }
 
-#registrationForm .text h3 a:hover {
+#loginForm .text h3 a:hover {
   text-decoration: underline;
 }
 
@@ -126,6 +125,6 @@ small {
 }
 
 h3{
-  font-size: 18px;
-  font-weight: bold;
+    font-size: 18px;
+    font-weight: bold;
 }
