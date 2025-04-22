@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title> 
+    <link rel="stylesheet" href="../css/regisration.css">
+  </head>
+  <body>
+    <div class="wrapper">
+      <h2>Registration</h2>
+      <form id="registrationForm">
+        
+        <div class="input-box">
+          <label for="first-name">First Name</label>
+          <input type="text" id="first-name" placeholder="Enter your first name" required>
+        </div>
+
+        <div class="input-box">
+          <label for="last-name">Last Name</label>
+          <input type="text" id="last-name" placeholder="Enter your last name" required>
+        </div>
+
+        <div class="input-box">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="Enter your email" required>
+        </div>
+
+        <div class="input-box">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Create a password" required>
+        </div>
+
+        <div class="input-box">
+          <label for="confirm-password">Confirm Password</label>
+          <input type="password" id="confirm-password" placeholder="Confirm your password" required>
+        </div>
+
+        <div class="input-box">
+          <label for="role">Select Role</label>
+          <select id="role" required>
+            <option value="admin">Admin</option>
+            <option value="manager">Manager</option>
+            <option value="developer">Developer</option>
+          </select>
+        </div>
+
+        <div class="input-box">
+          <label for="profile-photo">Profile Photo</label>
+          <input type="file" id="profile-photo" accept="image/*" />
+          <small>You can upload a profile photo.</small>
+        </div>
+
+        <div class="policy">
+          <input type="checkbox" id="terms" required>
+          <label for="terms">I accept the terms & conditions</label>
+        </div>
+
+        <div class="input-box button">
+          <input type="submit" value="Register Now">
+        </div>
+
+        <div class="text">
+          <h3>Already have an account? <a href="#">Login now</a></h3>
+        </div>
+      </form>
+    </div>
+    <script src="../javascript/registration.js"></script>
+  </body>
+</html>
