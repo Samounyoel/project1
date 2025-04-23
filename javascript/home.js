@@ -168,26 +168,47 @@ function disconnect() {
 }
 
 // Show priority avatars only if event exists
-function updateCheckboxAvatar(checkbox, hasEvent = false) {
+// function updateCheckboxAvatar(checkbox, hasEvent = false) {
+//   const priority = checkbox.value;
+//   const avatarContainer = document.getElementById(`avatar-container-${priority}`);
+  
+//   document.querySelectorAll('.avatar-container').forEach(container => {
+//     container.style.backgroundImage = "";
+//   });
+
+//   if (avatarContainer && checkbox.checked && hasEvent) {
+//     const avatarSrc = currentUSER.avatar?.startsWith("data:image")
+//       ? currentUSER.profilePicture
+//       : currentUSER.profilePicture
+//       ? `/project1/images/${currentUSER.profilePicture}`
+//       : "/project1/images/1.jpg";
+
+//     avatarContainer.style.backgroundImage = `url(${avatarSrc})`;
+//     avatarContainer.style.backgroundSize = "50px 50px";
+//     avatarContainer.style.backgroundPosition = "center";
+//   }
+// }
+
+
+//allows the currentUser.profilePic to be the displayed image (inside the radio button) when choosing a priority:
+function updateCheckboxAvatar(checkbox) {
   const priority = checkbox.value;
   const avatarContainer = document.getElementById(`avatar-container-${priority}`);
-  
+
+  //clears all avatar containers:
   document.querySelectorAll('.avatar-container').forEach(container => {
     container.style.backgroundImage = "";
   });
 
-  if (avatarContainer && checkbox.checked && hasEvent) {
-    const avatarSrc = currentUSER.avatar?.startsWith("data:image")
-      ? currentUSER.profilepicture
-      : currentUSER.profilepicture
-      ? `/project1/images/${currentUSER.profilepicture}`
-      : "/project1/images/1.jpg";
-
-    avatarContainer.style.backgroundImage = `url(${avatarSrc})`;
-    avatarContainer.style.backgroundSize = "50px 50px";
+  //only proceeds if the profile picture exists:
+  if (avatarContainer && checkbox.checked && currentUSER.profilePicture) {
+    avatarContainer.style.backgroundImage = `url(${currentUSER.profilePicture})`;
+    avatarContainer.style.backgroundSize = "cover";
     avatarContainer.style.backgroundPosition = "center";
+    avatarContainer.style.backgroundRepeat = "no-repeat";
   }
 }
+
 
 // Initialization
 createTimeLabels();
@@ -199,3 +220,4 @@ loadUserNavbar();
 document.querySelectorAll('input[name="eventPriority"]').forEach(input => {
   input.addEventListener("change", () => updateCheckboxAvatar(input, true));
 });
+
