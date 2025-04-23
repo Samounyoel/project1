@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Weekly Calendar View</title>
   <link rel="stylesheet" href="../css/home.css" />
 </head>
+
 <body>
   <!-- User Navbar with Avatar and User Info -->
   <div id="userNavbar" class="user-navbar">
-    <img id="user-avatar" src="" alt="User Avatar" style="width: 50px; height: 50px; border-radius: 50%;" />
+    <img id="user-avatar" src="" alt="Error" style="width: 50px; height: 50px; border-radius: 50%;" />
     <span id="user-name">User Name</span>
   </div>
 
@@ -33,24 +35,24 @@
       <span class="close-btn">&times;</span> <!-- Close button -->
       <label class="mission"> &#128060 נא לבחור משימה</label>
       <form id="eventForm">
-        
+
         <input type="text" id="eventName" placeholder="אז מה אנחנו עושים היום? &#128060" required />
 
         <label class="priority-text" for="eventPriority">Priority</label>
-        
+
         <div class="priority-container">
           <label for="lowPriority">
             <input type="radio" name="eventPriority" value="Low" id="lowPriority">
             <div id="avatar-container-Low" class="avatar-container"></div>
             <span class="priority-name">Low</span>
           </label>
-          
+
           <label for="mediumPriority">
             <input type="radio" name="eventPriority" value="Medium" id="mediumPriority">
             <div id="avatar-container-Medium" class="avatar-container"></div>
             <span class="priority-name">Medium</span>
           </label>
-          
+
           <label for="highPriority">
             <input type="radio" name="eventPriority" value="High" id="highPriority">
             <div id="avatar-container-High" class="avatar-container"></div>
@@ -67,6 +69,11 @@
     </div>
   </div>
 
+
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
   <script src="../javascript/home.js"></script>
 </body>
+
 </html>

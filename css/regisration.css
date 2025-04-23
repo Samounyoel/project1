@@ -125,6 +125,13 @@ small {
   color: #707070;
 }
 
+#profilePicInput{
+  border: 1px solid rgb(186, 182, 182); 
+  width: 100%;   
+  border-radius: 5px;
+  padding: 3px;
+}
+
 h3{
   font-size: 18px;
   font-weight: bold;

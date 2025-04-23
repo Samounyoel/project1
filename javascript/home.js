@@ -1,8 +1,8 @@
 // Redirect to login page if user is not logged in
-const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
-if (!loggedInUser) {
-  window.location.href = "login.html"; // adjust path if needed
-}
+const currentUSER = JSON.parse(localStorage.getItem("currentUSER"));
+// if (!currentUSER) {
+//   window.location.href = "login.html"; // adjust path if needed
+// }
 
 const calendarGrid = document.getElementById("calendarGrid");
 const eventModal = document.getElementById("eventModal");
@@ -16,7 +16,7 @@ const days = ["ראשון", "שני", "שלישי", "רביעי", "חמישי", 
 let events = {};
 
 function getUserEventKey() {
-  return `events_${loggedInUser.email}`;
+  return `events_${currentUSER.email}`;
 }
 
 // Create time labels for each row
@@ -136,33 +136,34 @@ window.onclick = function (e) {
   }
 };
 
-// Navbar setup
+//Navbar setup:
 function loadUserNavbar() {
   const navbar = document.getElementById("userNavbar");
-  let avatarSrc = "";
+  // let avatarSrc = "";
 
-  if (loggedInUser) {
-    if (loggedInUser.avatar?.startsWith("data:image")) {
-      avatarSrc = loggedInUser.avatar;
-    } else if (loggedInUser.avatar) {
-      avatarSrc = `/project1/images/${loggedInUser.avatar}`;
-    } else {
-      avatarSrc = "/project1/images/1.jpg";
-    }
-
+  if (currentUSER) {
+    // if (currentUSER.avatar?.startsWith("data:image")) {
+    //   avatarSrc = currentUSER.profilepicture;
+    // }
+    //  else if (currentUSER.avatar) {
+    //   avatarSrc = `/project1/images/${currentUSER.avatar}`;
+    // } else {
+    //   avatarSrc = "/project1/images/1.jpg";
+    // }
+    // document.getElementById("user-avatar").src = currentUSER.profilePicture
     navbar.innerHTML = `
       <div class="user-info">
-        <img id="user-avatar" src="${avatarSrc}" alt="Avatar" onerror="this.src='/project1/images/1.jpg'" />
-        <span class="user-name">${loggedInUser.firstName} ${loggedInUser.lastName}</span>
+        <img id="user-avatar" src="${currentUSER.profilePicture}" alt="Error"/>
+        <span class="user-name">${currentUSER.firstName} ${currentUSER.lastName}</span>
       </div>
       <button class="disconnect-btn" onclick="disconnect()">Disconnect</button>
     `;
   }
 }
 
-// Disconnect user
+//Disconnect:
 function disconnect() {
-  localStorage.removeItem("loggedInUser");
+  localStorage.removeItem("currentUSER");
   window.location.href = "login.html";
 }
 
@@ -176,10 +177,10 @@ function updateCheckboxAvatar(checkbox, hasEvent = false) {
   });
 
   if (avatarContainer && checkbox.checked && hasEvent) {
-    const avatarSrc = loggedInUser.avatar?.startsWith("data:image")
-      ? loggedInUser.avatar
-      : loggedInUser.avatar
-      ? `/project1/images/${loggedInUser.avatar}`
+    const avatarSrc = currentUSER.avatar?.startsWith("data:image")
+      ? currentUSER.profilepicture
+      : currentUSER.profilepicture
+      ? `/project1/images/${currentUSER.profilepicture}`
       : "/project1/images/1.jpg";
 
     avatarContainer.style.backgroundImage = `url(${avatarSrc})`;
