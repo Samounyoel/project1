@@ -43,6 +43,9 @@ document.getElementById("registrationForm").addEventListener("submit", function(
   users.push(userData);
   localStorage.setItem("users", JSON.stringify(users));
 
+  // Set current user in localStorage
+  localStorage.setItem("currentUser", JSON.stringify(userData));
+
   alert("Registration successful!");
   
   // Redirect to login page

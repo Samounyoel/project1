@@ -1,7 +1,7 @@
 // Redirect to login page if user is not logged in
 const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
 if (!loggedInUser) {
-  window.location.href = "login.html"; // adjust the path if needed
+  window.location.href = "login.html"; // adjust path if needed
 }
 
 const calendarGrid = document.getElementById("calendarGrid");
@@ -15,7 +15,11 @@ const deleteEventButton = document.getElementById("deleteEventButton");
 const days = ["ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת"];
 let events = {};
 
-// Create time labels for each row in the calendar
+function getUserEventKey() {
+  return `events_${loggedInUser.email}`;
+}
+
+// Create time labels for each row
 function createTimeLabels() {
   const timeColumn = document.querySelector(".time-column");
   for (let hour = 8; hour <= 18; hour++) {
@@ -25,7 +29,7 @@ function createTimeLabels() {
   }
 }
 
-// Render the calendar dynamically with events
+// Render calendar with user's events
 function renderCalendar() {
   calendarGrid.innerHTML = "";
 
@@ -47,13 +51,11 @@ function renderCalendar() {
       slot.dataset.day = dayIndex;
       slot.dataset.time = time;
 
-      // Make Friday (5) and Saturday (6) slots transparent and unclickable
       if (dayIndex === 5 || dayIndex === 6) {
         slot.style.pointerEvents = "none";
         slot.style.opacity = "0.3";
         slot.style.backgroundColor = "#f0f0f0";
       } else {
-        // Add event listener for opening the modal when a time slot is clicked
         slot.addEventListener("click", () => openModal(dayIndex, time));
       }
 
@@ -72,10 +74,8 @@ function renderCalendar() {
   });
 }
 
-// Open the modal for adding or editing events
+// Open modal and fill existing event if any
 function openModal(day, time) {
-  console.log("Opening modal for day:", day, "and time:", time); // Debugging step
-
   const key = `${day}-${time}`;
   const existing = events[key];
 
@@ -83,19 +83,17 @@ function openModal(day, time) {
   eventHour.value = time;
   eventName.value = existing ? existing.name : "";
 
-  const selectedPriority = existing ? existing.priority : "Low";
+  const selectedPriority = existing ? existing.priority : null;
   document.querySelectorAll('input[name="eventPriority"]').forEach(input => {
     input.checked = input.value === selectedPriority;
-    updateCheckboxAvatar(input); // Update avatar on priority change
+    updateCheckboxAvatar(input, !!existing);
   });
 
   deleteEventButton.style.display = existing ? "block" : "none";
-
-  // Make sure the modal becomes visible
   eventModal.style.display = "flex";
 }
 
-// Handle form submission for creating or editing an event
+// Submit form (add/update event)
 eventForm.onsubmit = function (e) {
   e.preventDefault();
   const key = `${eventDay.value}-${eventHour.value}`;
@@ -111,7 +109,7 @@ eventForm.onsubmit = function (e) {
   renderCalendar();
 };
 
-// Delete the event and close the modal
+// Delete event
 deleteEventButton.addEventListener("click", () => {
   const key = `${eventDay.value}-${eventHour.value}`;
   delete events[key];
@@ -120,39 +118,36 @@ deleteEventButton.addEventListener("click", () => {
   renderCalendar();
 });
 
-// Save events to localStorage
+// Save user-specific events
 function saveEvents() {
-  localStorage.setItem("events", JSON.stringify(events));
+  localStorage.setItem(getUserEventKey(), JSON.stringify(events));
 }
 
-// Load events from localStorage
+// Load user-specific events
 function loadEvents() {
-  const saved = localStorage.getItem("events");
+  const saved = localStorage.getItem(getUserEventKey());
   if (saved) events = JSON.parse(saved);
 }
 
-// Close modal if clicked outside of it
+// Close modal when clicked outside
 window.onclick = function (e) {
   if (e.target === eventModal) {
     eventModal.style.display = "none";
   }
 };
 
+// Navbar setup
 function loadUserNavbar() {
   const navbar = document.getElementById("userNavbar");
-
   let avatarSrc = "";
 
   if (loggedInUser) {
-    console.log(loggedInUser); // Debugging log to check the user data
-
-    // Checking if the avatar is provided as a base64 string or path to the image
     if (loggedInUser.avatar?.startsWith("data:image")) {
       avatarSrc = loggedInUser.avatar;
     } else if (loggedInUser.avatar) {
       avatarSrc = `/project1/images/${loggedInUser.avatar}`;
     } else {
-      avatarSrc = "/project1/images/1.jpg"; // Default avatar
+      avatarSrc = "/project1/images/1.jpg";
     }
 
     navbar.innerHTML = `
@@ -162,50 +157,44 @@ function loadUserNavbar() {
       </div>
       <button class="disconnect-btn" onclick="disconnect()">Disconnect</button>
     `;
-  } else {
-    console.log("No logged-in user found");
   }
 }
 
-// Disconnect = clear session and redirect
+// Disconnect user
 function disconnect() {
   localStorage.removeItem("loggedInUser");
   window.location.href = "login.html";
 }
 
-// Function to update checkbox with avatar when selected
-function updateCheckboxAvatar(checkbox) {
+// Show priority avatars only if event exists
+function updateCheckboxAvatar(checkbox, hasEvent = false) {
   const priority = checkbox.value;
   const avatarContainer = document.getElementById(`avatar-container-${priority}`);
   
-  // Hide all avatar containers before updating
   document.querySelectorAll('.avatar-container').forEach(container => {
-    container.style.backgroundImage = ""; // Reset all avatars
+    container.style.backgroundImage = "";
   });
 
-  // Check if avatarContainer exists before updating
-  if (avatarContainer) {
-    if (checkbox.checked) {
-      const avatarSrc = loggedInUser.avatar?.startsWith("data:image")
-        ? loggedInUser.avatar
-        : loggedInUser.avatar
-        ? `/project1/images/${loggedInUser.avatar}`
-        : "/project1/images/1.jpg";
-      avatarContainer.style.backgroundImage = `url(${avatarSrc})`;
-      avatarContainer.style.backgroundSize = "50px 50px"; // Avatar size
-      avatarContainer.style.backgroundPosition = "center";
-    }
+  if (avatarContainer && checkbox.checked && hasEvent) {
+    const avatarSrc = loggedInUser.avatar?.startsWith("data:image")
+      ? loggedInUser.avatar
+      : loggedInUser.avatar
+      ? `/project1/images/${loggedInUser.avatar}`
+      : "/project1/images/1.jpg";
+
+    avatarContainer.style.backgroundImage = `url(${avatarSrc})`;
+    avatarContainer.style.backgroundSize = "50px 50px";
+    avatarContainer.style.backgroundPosition = "center";
   }
 }
 
-// Initialize the page
+// Initialization
 createTimeLabels();
 loadEvents();
 renderCalendar();
 loadUserNavbar();
 
-// Event listeners for checkboxes
+// Handle checkbox avatar update
 document.querySelectorAll('input[name="eventPriority"]').forEach(input => {
-  input.addEventListener('change', () => updateCheckboxAvatar(input)); // Listen for changes
-  updateCheckboxAvatar(input); // Initialize avatar display based on checked state
+  input.addEventListener("change", () => updateCheckboxAvatar(input, true));
 });
