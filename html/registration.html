@@ -6,13 +6,43 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registration Form</title>
   <link rel="stylesheet" href="../css/regisration.css">
+  <style>
+    .avatar-options {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .avatar-options label {
+      cursor: pointer;
+      border: 2px solid transparent;
+      border-radius: 8px;
+      padding: 5px;
+      transition: border-color 0.3s;
+    }
+
+    .avatar-options input[type="radio"] {
+      display: none;
+    }
+
+    .avatar-options input[type="radio"]:checked + img {
+      border: 2px solid #3498db;
+      border-radius: 8px;
+    }
+
+    .avatar-options img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+    }
+  </style>
 </head>
 
 <body>
   <div class="wrapper">
     <h2>Registration</h2>
-    <div id="registrationForm">
 
+    <form id="registrationForm">
       <div class="input-box">
         <label for="first-name">First Name</label>
         <input type="text" id="first-name" placeholder="Enter your first name" required>
@@ -48,9 +78,21 @@
       </div>
 
       <div class="input-box">
-        <label for="profile-photo">Profile Photo</label>
-        <input type="file" id="profile-photo" accept="image/*" />
-        <small>You can upload a profile photo.</small>
+        <label>Select an Avatar</label>
+        <div class="avatar-options">
+          <label>
+            <input type="radio" name="avatar" value="../images/1.jpg">
+            <img src="../images/1.jpg" alt="Avatar 1">
+          </label>
+          <label>
+            <input type="radio" name="avatar" value="../images/2.jpg">
+            <img src="../images/2.jpg" alt="Avatar 2">
+          </label>
+          <label>
+            <input type="radio" name="avatar" value="../images/3.jpg">
+            <img src="../images/3.jpg" alt="Avatar 3">
+          </label>
+        </div>
       </div>
 
       <div class="policy">
@@ -65,8 +107,9 @@
       <div class="text">
         <h3>Already have an account? <a href="./login.html">Login now</a></h3>
       </div>
-    </div>
+    </form>
   </div>
+
   <script src="../javascript/registration.js"></script>
 </body>
 

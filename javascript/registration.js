@@ -8,7 +8,7 @@ document.getElementById("registrationForm").addEventListener("submit", function(
   const password = document.getElementById("password").value;
   const confirmPassword = document.getElementById("confirm-password").value;
   const role = document.getElementById("role").value;
-  const avatar = document.getElementById("profile-photo").files[0];
+  const selectedAvatar = document.querySelector('input[name="avatar"]:checked');
   const termsAccepted = document.getElementById("terms").checked;
 
   // Validation
@@ -22,6 +22,11 @@ document.getElementById("registrationForm").addEventListener("submit", function(
     return;
   }
 
+  if (!selectedAvatar) {
+    alert("Please select an avatar.");
+    return;
+  }
+
   // Prepare user data object
   const userData = {
     firstName,
@@ -29,7 +34,7 @@ document.getElementById("registrationForm").addEventListener("submit", function(
     email,
     password,
     role,
-    avatar: avatar ? avatar.name : null,
+    avatar: selectedAvatar.value, // file name (e.g., "1.jpg")
     termsAccepted
   };
 
@@ -40,10 +45,10 @@ document.getElementById("registrationForm").addEventListener("submit", function(
 
   alert("Registration successful!");
   
-  // Redirect to login page (optional)
+  // Redirect to login page
   showLoginForm();
 });
 
 function showLoginForm() {
-  window.location.href = "login.html";  // assuming you have a login page.
+  window.location.href = "login.html";
 }
