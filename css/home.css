@@ -1,0 +1,393 @@
+body {
+    font-family: "Arial", sans-serif;
+    background-color: #0077cc; /* blue background like login */
+    color: #333;
+    margin: 0;
+    padding: 0;
+    direction: rtl;
+  }
+  
+  .calendar {
+    max-width: 1100px;
+    margin: auto;
+    padding: 20px;
+  }
+  
+  header {
+    text-align: center;
+    margin-bottom: 20px;
+    color: white;
+  }
+  
+  .calendar-container {
+    display: flex;
+    border: 1px solid #ddd;
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .time-column {
+    width: 80px;
+    border-left: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    background-color: #f0f8ff;
+  }
+  
+  .time-column div {
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    font-size: 12px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .week-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+  }
+  
+  .day-column {
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid #ddd;
+  }
+  
+  .day-header {
+    height: 40px;
+    line-height: 40px;
+    background-color: #e6f0ff;
+    text-align: center;
+    font-weight: bold;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .time-slot {
+    height: 60px;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .time-slot:hover {
+    background-color: #eaf6ff;
+  }
+  
+  .event {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    padding: 5px;
+    font-size: 13px;
+    border-radius: 4px;
+    color: white;
+  }
+  
+  .priority-Low {
+    background-color: #868686;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    padding: 5px;
+  }
+  
+  .priority-Medium {
+    background-color: #0077cc;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    padding: 5px;
+
+  }
+  
+  .priority-High {
+    background-color: #e93b4c;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    padding: 5px;
+
+  }
+  
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modal-content {
+    background: rgb(43, 129, 250);
+    padding: 30px;
+    width: 500px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.3s ease-in-out;
+    font-size: 14px;
+  }
+  
+  @keyframes fadeIn {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+  
+  .modal-content h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 20px;
+    color: #333;
+    font-weight: 600;
+  }
+  
+  input, select {
+    width: 90%;
+    font-weight: 600;
+    padding: 14px 16px;
+    margin-bottom: 18px;
+    border: 1px solid #d0d4dc;
+    border-radius: 10px;
+    background-color: #ffffff;
+    font-size: 15px;
+    color: #050404;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  input:focus, select:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #0073ea;
+  }
+  
+  .modal-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+  }
+  
+  .save-btn {
+    background-color: #0073ea; /* Monday blue */
+    color: white;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    width: 48%;
+  }
+  
+  .save-btn:hover {
+    background-color: #005bb5;
+  }
+  
+  .delete-btn {
+    background-color: #ff4d4d; /* Monday red */
+    color: white;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    width: 48%;
+  }
+  
+  .delete-btn:hover {
+    background-color: #ff6969;
+  }
+  
+  .user-navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #e6f0ff;
+    padding: 10px 20px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+  }
+  
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .user-info img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #0077cc;
+  }
+  
+  .user-name {
+    font-weight: bold;
+  }
+  
+  .disconnect-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .disconnect-btn:hover {
+    background-color: #c82333;
+  }
+  
+  .disabled-slot {
+    background-color: rgba(0, 0, 0, 0.05);
+    pointer-events: none;
+    opacity: 0.4;
+  }
+  
+  /* Style for radio button container to display the avatar inside */
+  .priority-container {
+    display: flex;
+    align-items: center; /* Vertically center items */
+    gap: 10px; /* Add spacing between items */
+  }
+  
+  .priority-container input[type="radio"] {
+    display: none; /* Hide the default radio button */
+  }
+  
+  .priority-container input[type="radio"] + label {
+    position: relative;
+    display: block;
+    cursor: pointer;
+  }
+  
+  .priority-container input[type="radio"]:checked + label::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    width: 50px;
+    height: 50px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%; /* Circular avatar */
+    transform: translateY(-50%);
+  }
+  
+  .priority-container input[type="radio"]:checked + label {
+    font-weight: bold;
+  }
+  
+  #avatar-container-low,
+  #avatar-container-medium,
+  #avatar-container-high {
+    display: none; /* Hidden by default */
+  }
+  
+  
+ 
+  
+  .avatar-container img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  
+.priority-container {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+  }
+  
+  .priority-container label {
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .avatar-container {
+    
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #ffffff; 
+    margin-bottom: 5px; 
+  }
+  
+  .priority-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff; 
+  }
+
+  .priority-text {
+    padding-bottom: 20px;
+    padding-top: 30px;
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    text-align: center;
+    direction: ltr; 
+    width: 100%;    
+    display: block; 
+    margin: auto;
+  }
+
+  .mission {
+    padding-bottom: 20px;
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    text-align: center;
+    direction: ltr; 
+    width: 100%;    
+    display: block; 
+    margin: auto;
+  }
+ 
+  .btn-save {
+    margin-top: 30px; /* top margin */
+    margin-bottom: 20px;
+    color: white;
+    background-color: #4b51ff;
+    font-size: 20px;
+    width: 40%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-decoration: none;
+    border: none;       /* removes border */
+    outline: none;      /* removes outline on focus */
+    padding: 10px 20px; /* optional: adds padding inside button */
+    border-radius: 8px; /* optional: makes edges rounded */
+    cursor: pointer;    /* optional: changes cursor on hover */
+  }
+
+  .btn-delete {
+    margin-top: 30px; /* top margin */
+    margin-bottom: 20px;
+    color: white;
+    background-color: #ff4ba2;
+    font-size: 20px;
+    width: 40%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-decoration: none;
+    border: none;       /* removes border */
+    outline: none;      /* removes outline on focus */
+    padding: 10px 20px; /* optional: adds padding inside button */
+    border-radius: 8px; /* optional: makes edges rounded */
+    cursor: pointer;    /* optional: changes cursor on hover */
+  }
+
+  
