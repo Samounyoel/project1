@@ -87,16 +87,26 @@ body {
   }
   
   .priority-Low {
-    background-color: #6c757d;
+    background-color: #868686;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    padding: 5px;
   }
   
   .priority-Medium {
-    background-color: #ffc107;
-    color: #333;
+    background-color: #0077cc;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    padding: 5px;
+
   }
   
   .priority-High {
-    background-color: #dc3545;
+    background-color: #e93b4c;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    padding: 5px;
+
   }
   
   .modal {
