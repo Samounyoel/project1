@@ -42,7 +42,7 @@
         <label for="role">Select Role</label>
         <select id="role" required>
           <option value="admin">Admin</option>
-          <option value="manager">Manager</option>
+          <!-- <option value="manager">Manager</option> -->
           <option value="developer">Developer</option>
         </select>
       </div>
@@ -59,15 +59,21 @@
       </div>
 
       <div class="input-box button">
-        <input type="submit" value="Register Now">
+        <input id="registerBtn" type="submit" value="Register Now">
       </div>
 
       <div class="text">
         <h3>Already have an account? <a href="./login.html">Login now</a></h3>
       </div>
+
+      <p id="panda">&#128060</p>
+
     </div>
   </div>
   <script src="../javascript/registration.js"></script>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 </body>
 
 </html>

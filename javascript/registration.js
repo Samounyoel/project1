@@ -1,6 +1,5 @@
-document.getElementById("registrationForm").addEventListener("submit", function(event) {
-  event.preventDefault();
-  
+document.getElementById("registerBtn").addEventListener("click", function () {
+
   // Get form values
   const firstName = document.getElementById("first-name").value;
   const lastName = document.getElementById("last-name").value;
@@ -11,39 +10,41 @@ document.getElementById("registrationForm").addEventListener("submit", function(
   const avatar = document.getElementById("profile-photo").files[0];
   const termsAccepted = document.getElementById("terms").checked;
 
-  // Validation
-  if (password !== confirmPassword) {
-    alert("Passwords do not match!");
-    return;
+  if (!firstName || !lastName) {
+    alert("All fields are required.")
+  } else {
+
+    // Validation
+    if (password !== confirmPassword) {
+      alert("Passwords do not match! Try again.");
+      return;
+    }
+
+    if (!termsAccepted) {
+      alert("You must accept the terms and conditions.");
+      return;
+    }
+
+    // Prepare user data object
+    const userData = {
+      firstName,
+      lastName,
+      email,
+      password,
+      role,
+      avatar: avatar ? avatar.name : null,
+      termsAccepted
+    };
+
+    // Save user data to localStorage
+    let USERS = JSON.parse(localStorage.getItem("USERS")) || [];
+    USERS.push(userData);
+    localStorage.setItem("USERS", JSON.stringify(USERS));
+
+    alert("Registration successful!");
+
+    // Redirect to login page (optional)
+    window.location.href = "login.html";
   }
-
-  if (!termsAccepted) {
-    alert("You must accept the terms and conditions.");
-    return;
-  }
-
-  // Prepare user data object
-  const userData = {
-    firstName,
-    lastName,
-    email,
-    password,
-    role,
-    avatar: avatar ? avatar.name : null,
-    termsAccepted
-  };
-
-  // Save user data to localStorage
-  let users = JSON.parse(localStorage.getItem("users")) || [];
-  users.push(userData);
-  localStorage.setItem("users", JSON.stringify(users));
-
-  alert("Registration successful!");
-  
-  // Redirect to login page (optional)
-  showLoginForm();
 });
 
-function showLoginForm() {
-  window.location.href = "login.html";  // assuming you have a login page.
-}
